@@ -27,4 +27,8 @@ export class TodosService {
   getTodoById(id: string): Todo {
     return this.todos.find((todo) => todo.id === id);
   }
+
+  deleteTodoById(id: string): void {
+    this.todos = this.todos.filter((todo) => todo.id !== id);
+  }
 }
