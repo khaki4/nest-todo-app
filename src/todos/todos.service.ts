@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Todo, TodoStatus } from './todo.model';
 import { v1 as uuid } from 'uuid';
+import { CreateTodoDto } from './dto/create-todo.dto';
 
 @Injectable()
 export class TodosService {
@@ -10,7 +11,8 @@ export class TodosService {
     return this.todos;
   }
 
-  createTodo(title: string, description: string) {
+  createTodo(createTodoDto: CreateTodoDto): Todo {
+    const { title, description } = createTodoDto;
     const todo: Todo = {
       id: uuid(),
       title,
