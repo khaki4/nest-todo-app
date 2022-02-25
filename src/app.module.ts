@@ -3,6 +3,5 @@ import { TodosModule } from './todos/todos.module';
 
 @Module({
   imports: [TodosModule],
-  controllers: [],
 })
 export class AppModule {}
