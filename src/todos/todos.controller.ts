@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { Todo } from './todo.model';
 import { TodosService } from './todos.service';
@@ -10,6 +10,11 @@ export class TodosController {
   @Get('/')
   getAllBoards(): Todo[] {
     return this.todoService.getAllBoards();
+  }
+
+  @Get('/:id')
+  getTodoById(@Param('id') id: string): Todo {
+    return this.todoService.getTodoById(id);
   }
 
   @Post()
