@@ -3,5 +3,5 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private autuService: AuthService) {}
+  constructor(private authService: AuthService) {}
 }
