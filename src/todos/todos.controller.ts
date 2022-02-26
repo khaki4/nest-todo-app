@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { isUndefined } from 'lodash';
 import { CreateTodoDto } from './dto/create-todo.dto';
+import { TodoStatusValidationPipe } from './pipes/todo-status-validation.pipe';
 import { Todo, TodoStatus } from './todo.model';
 import { TodosService } from './todos.service';
 
@@ -49,7 +50,7 @@ export class TodosController {
   @Patch('/:id/status')
   updateTodoStatus(
     @Param('id') id: string,
-    @Body('status') status: TodoStatus,
+    @Body('status', TodoStatusValidationPipe) status: TodoStatus,
   ): Todo {
     return this.todoService.updateTodoStatus(id, status);
   }
