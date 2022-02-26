@@ -25,4 +25,10 @@ export class TodosController {
   getTodoById(@Param('id') id: number): Promise<Todo> {
     return this.todoService.getTodoById(id);
   }
+
+  @Post()
+  @UsePipes(ValidationPipe)
+  createBoard(@Body() createBoardDto: CreateTodoDto): Promise<Todo> {
+    return this.todoService.createTodo(createBoardDto);
+  }
 }

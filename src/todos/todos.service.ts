@@ -14,6 +14,18 @@ export class TodosService {
     private todoRepository: TodoRepository,
   ) {}
 
+  async createTodo(createBoardDto: CreateTodoDto): Promise<Todo> {
+    const { title, description } = createBoardDto;
+    const todo = this.todoRepository.create({
+      title,
+      description,
+      status: TodoStatus.OPEN,
+    });
+
+    await this.todoRepository.save(todo);
+    return todo;
+  }
+
   async getTodoById(id: number): Promise<Todo> {
     const found = await this.todoRepository.findOne(id);
     if (isUndefined(found)) {
