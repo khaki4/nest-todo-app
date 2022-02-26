@@ -42,7 +42,8 @@ export class TodosController {
 
   @Delete('/:id')
   deleteTodoById(@Param('id') id: string): void {
-    return this.todoService.deleteTodoById(id);
+    const found = this.getTodoById(id);
+    return this.todoService.deleteTodoById(found.id);
   }
 
   @Patch('/:id/status')
