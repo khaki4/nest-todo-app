@@ -21,6 +21,7 @@ export class TodosService {
     };
 
     this.todos.push(todo);
+
     return todo;
   }
 
@@ -30,5 +31,12 @@ export class TodosService {
 
   deleteTodoById(id: string): void {
     this.todos = this.todos.filter((todo) => todo.id !== id);
+  }
+
+  updateTodoStatus(id: string, status: TodoStatus): Todo {
+    const todo = this.getTodoById(id);
+    todo.status = status;
+
+    return todo;
   }
 }
