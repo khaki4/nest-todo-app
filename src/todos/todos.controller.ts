@@ -33,6 +33,14 @@ export class TodosController {
     return this.todoService.createTodo(createBoardDto);
   }
 
+  @Patch('/:id/status')
+  updateTodoStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status', TodoStatusValidationPipe) status: TodoStatus,
+  ): Promise<Todo> {
+    return this.todoService.updateTodoStatus(id, status);
+  }
+
   @Delete('/:id')
   deleteTodo(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.todoService.deleteBoard(id);
