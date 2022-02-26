@@ -3,12 +3,14 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { isUndefined } from 'lodash';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { Todo, TodoStatus } from './todo.model';
 import { TodosService } from './todos.service';
@@ -24,7 +26,12 @@ export class TodosController {
 
   @Get('/:id')
   getTodoById(@Param('id') id: string): Todo {
-    return this.todoService.getTodoById(id);
+    const found = this.todoService.getTodoById(id);
+    if (isUndefined(found)) {
+      throw new NotFoundException(`Cant't find Todo with id - ${id}`);
+    }
+
+    return found;
   }
 
   @Post()
