@@ -22,6 +22,11 @@ import { Todo } from './todo.entity';
 export class TodosController {
   constructor(private todoService: TodosService) {}
 
+  @Get()
+  getAllTodos(): Promise<Todo[]> {
+    return this.todoService.getAllTodos();
+  }
+
   @Get('/:id')
   getTodoById(@Param('id') id: number): Promise<Todo> {
     return this.todoService.getTodoById(id);

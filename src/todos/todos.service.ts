@@ -21,7 +21,12 @@ export class TodosService {
   async updateTodoStatus(id: number, status: TodoStatus): Promise<Todo> {
     const todo = await this.getTodoById(id);
     await this.todoRepository.updateTodo(todo, status);
+
     return todo;
+  }
+
+  async getAllTodos(): Promise<Todo[]> {
+    return await this.todoRepository.find();
   }
 
   async getTodoById(id: number): Promise<Todo> {
