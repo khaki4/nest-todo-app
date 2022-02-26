@@ -15,6 +15,7 @@ import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoStatusValidationPipe } from './pipes/todo-status-validation.pipe';
 import { TodoStatus } from './todo-status.enum';
 import { TodosService } from './todos.service';
+import { Todo } from './todo.entity';
 
 @Controller('todos')
 export class TodosController {
@@ -24,7 +25,12 @@ export class TodosController {
   // getAllBoards(): Todo[] {
   //   return this.todoService.getAllBoards();
   // }
-  //
+
+  @Get('/:id')
+  getTodoById(@Param('id') id: number): Promise<Todo> {
+    return this.todoService.getTodoById(id);
+  }
+
   // @Get('/:id')
   // getTodoById(@Param('id') id: string): Todo {
   //   const found = this.todoService.getTodoById(id);
