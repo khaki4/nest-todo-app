@@ -20,10 +20,7 @@ export class TodosService {
 
   async updateTodoStatus(id: number, status: TodoStatus): Promise<Todo> {
     const todo = await this.getTodoById(id);
-
-    todo.status = status;
-    await this.todoRepository.save(todo);
-
+    await this.todoRepository.updateTodo(todo, status);
     return todo;
   }
 

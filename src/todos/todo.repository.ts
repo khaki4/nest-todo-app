@@ -16,4 +16,10 @@ export class TodoRepository extends Repository<Todo> {
     await this.save(todo);
     return todo;
   }
+
+  async updateTodo(todo: Todo, status: TodoStatus): Promise<Todo> {
+    todo.status = status;
+    await this.save(todo);
+    return todo;
+  }
 }
