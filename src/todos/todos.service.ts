@@ -26,4 +26,12 @@ export class TodosService {
 
     return found;
   }
+
+  async deleteBoard(id: number): Promise<void> {
+    const result = await this.todoRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Can't find todo with id ${id}`);
+    }
+  }
 }

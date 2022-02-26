@@ -9,6 +9,7 @@ import {
   Post,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { isUndefined } from 'lodash';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -28,7 +29,12 @@ export class TodosController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  createBoard(@Body() createBoardDto: CreateTodoDto): Promise<Todo> {
+  createTodo(@Body() createBoardDto: CreateTodoDto): Promise<Todo> {
     return this.todoService.createTodo(createBoardDto);
+  }
+
+  @Delete('/:id')
+  deleteTodo(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.todoService.deleteBoard(id);
   }
 }
