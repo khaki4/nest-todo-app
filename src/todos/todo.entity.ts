@@ -1,5 +1,12 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TodoStatus } from './todo-status.enum';
+import { User } from '../auth/user.entity';
 
 @Entity()
 export class Todo extends BaseEntity {
@@ -14,4 +21,7 @@ export class Todo extends BaseEntity {
 
   @Column()
   status: TodoStatus;
+
+  @ManyToOne((type) => User, (user) => user.todos, { eager: false })
+  user: User;
 }

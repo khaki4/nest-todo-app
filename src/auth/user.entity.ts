@@ -2,9 +2,11 @@ import {
   BaseEntity,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
+import { Todo } from '../todos/todo.entity';
 
 @Entity()
 @Unique(['username'])
@@ -17,4 +19,7 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  @OneToMany((type) => Todo, (todo) => todo.user, { eager: true })
+  todos: Todo[];
 }
