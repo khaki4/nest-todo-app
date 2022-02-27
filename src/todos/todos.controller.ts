@@ -3,22 +3,23 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
   Patch,
   Post,
   UsePipes,
   ValidationPipe,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
-import { isUndefined } from 'lodash';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoStatusValidationPipe } from './pipes/todo-status-validation.pipe';
 import { TodoStatus } from './todo-status.enum';
 import { TodosService } from './todos.service';
 import { Todo } from './todo.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('todos')
+@UseGuards(AuthGuard())
 export class TodosController {
   constructor(private todoService: TodosService) {}
 
