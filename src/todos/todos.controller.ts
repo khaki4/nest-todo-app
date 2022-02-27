@@ -26,8 +26,8 @@ export class TodosController {
   constructor(private todoService: TodosService) {}
 
   @Get()
-  getAllTodos(): Promise<Todo[]> {
-    return this.todoService.getAllTodos();
+  getAllTodos(@GetUser() user: User): Promise<Todo[]> {
+    return this.todoService.getAllTodos(user);
   }
 
   @Get('/:id')

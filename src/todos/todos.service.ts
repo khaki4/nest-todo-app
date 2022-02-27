@@ -25,8 +25,8 @@ export class TodosService {
     return todo;
   }
 
-  async getAllTodos(): Promise<Todo[]> {
-    return await this.todoRepository.find();
+  async getAllTodos(user: User): Promise<Todo[]> {
+    return await this.todoRepository.getAllTodos(user);
   }
 
   async getTodoById(id: number): Promise<Todo> {

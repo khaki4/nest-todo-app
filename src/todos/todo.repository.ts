@@ -24,4 +24,12 @@ export class TodoRepository extends Repository<Todo> {
     await this.save(todo);
     return todo;
   }
+
+  async getAllTodos(user): Promise<Todo[]> {
+    const todos = await this.createQueryBuilder('todo')
+      .where('todo.userId = :userId', { userId: user.id })
+      .getMany();
+
+    return todos;
+  }
 }
