@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { TodoStatus } from './todo-status.enum';
-import { v1 as uuid } from 'uuid';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoRepository } from './todo.repository';
 import { InjectRepository } from '@nestjs/typeorm';
