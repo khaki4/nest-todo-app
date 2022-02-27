@@ -10,6 +10,7 @@ import {
   ValidationPipe,
   ParseIntPipe,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoStatusValidationPipe } from './pipes/todo-status-validation.pipe';
@@ -23,10 +24,12 @@ import { User } from '../auth/user.entity';
 @Controller('todos')
 @UseGuards(AuthGuard())
 export class TodosController {
+  private logger = new Logger('TodoController');
   constructor(private todoService: TodosService) {}
 
   @Get()
   getAllTodos(@GetUser() user: User): Promise<Todo[]> {
+    this.logger.verbose(`User ${user.username} trying to get all todos`);
     return this.todoService.getAllTodos(user);
   }
 
@@ -41,6 +44,11 @@ export class TodosController {
     @Body() createBoardDto: CreateTodoDto,
     @GetUser() user: User,
   ): Promise<Todo> {
+    this.logger.verbose(
+      `User ${user.username} is creating new todo.
+      Payload: ${JSON.stringify(createBoardDto)}
+      `,
+    );
     return this.todoService.createTodo(createBoardDto, user);
   }
 
