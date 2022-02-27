@@ -4,19 +4,24 @@ import { UserRepository } from './user.repository';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import { isNil } from 'lodash';
 import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
+import { SignUpReturnValue } from './auth.model';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
+    private jwtService: JwtService,
   ) {}
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
     return this.userRepository.createUser(authCredentialsDto);
   }
 
-  async signIn(authCredentialsDto: AuthCredentialsDto): Promise<string> {
+  async signIn(
+    authCredentialsDto: AuthCredentialsDto,
+  ): Promise<SignUpReturnValue> {
     const { username, password } = authCredentialsDto;
     const user = await this.userRepository.findOne({ username });
 
@@ -24,6 +29,9 @@ export class AuthService {
       throw new UnauthorizedException('login fail');
     }
 
-    return 'login success';
+    const payload = { username };
+    const accessToken = this.jwtService.sign(payload);
+
+    return new SignUpReturnValue(accessToken);
   }
 }
