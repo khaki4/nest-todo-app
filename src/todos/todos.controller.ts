@@ -17,6 +17,8 @@ import { TodoStatus } from './todo-status.enum';
 import { TodosService } from './todos.service';
 import { Todo } from './todo.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../auth/get-user.decorator';
+import { User } from '../auth/user.entity';
 
 @Controller('todos')
 @UseGuards(AuthGuard())
@@ -35,8 +37,11 @@ export class TodosController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  createTodo(@Body() createBoardDto: CreateTodoDto): Promise<Todo> {
-    return this.todoService.createTodo(createBoardDto);
+  createTodo(
+    @Body() createBoardDto: CreateTodoDto,
+    @GetUser() user: User,
+  ): Promise<Todo> {
+    return this.todoService.createTodo(createBoardDto, user);
   }
 
   @Patch('/:id/status')
