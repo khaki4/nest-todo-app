@@ -9,6 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "db:run": "docker run --name todo-postgres-app -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=todo-app -d postgres",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
