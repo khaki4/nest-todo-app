@@ -29,8 +29,9 @@ export class TodosService {
     return this.todos.find((todo) => todo.id === id);
   }
 
-  deleteTodoById(id: string): void {
+  deleteTodoById(id: string): Todo[] {
     this.todos = this.todos.filter((todo) => todo.id !== id);
+    return this.todos;
   }
 
   updateTodoStatus(id: string, status: TodoStatus): Todo {
