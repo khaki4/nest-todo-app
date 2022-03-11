@@ -42,7 +42,7 @@ export class TodosController {
   }
 
   @Delete('/:id')
-  deleteTodoById(@Param('id') id: string): void {
+  deleteTodoById(@Param('id') id: string): Todo[] {
     const found = this.getTodoById(id);
     return this.todoService.deleteTodoById(found.id);
   }
