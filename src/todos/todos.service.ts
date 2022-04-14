@@ -41,11 +41,11 @@ export class TodosService {
     return found;
   }
 
-  async deleteTodo(id: number, user: User): Promise<DeleteResult> {
+  async deleteTodo(id: number, user: User): Promise<Todo[]> {
     const result = await this.todoRepository.delete({ id, user });
     if (result.affected === 0) {
       throw new NotFoundException(`Can't find todo with id ${id}`);
     }
-    return result;
+    return this.getAllTodos(user);
   }
 }
