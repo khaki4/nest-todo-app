@@ -28,8 +28,9 @@ export class TodoRepository extends Repository<Todo> {
   async getAllTodos(user): Promise<Todo[]> {
     const todos = await this.createQueryBuilder('todo')
       .where('todo.userId = :userId', { userId: user.id })
+      .orderBy('todo.createdDate', 'ASC')
       .getMany();
 
-    return todos;
+    return todos ?? [];
   }
 }
