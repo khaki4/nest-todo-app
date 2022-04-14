@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Todo } from './todo.entity';
 import { isUndefined } from 'lodash';
 import { User } from '../auth/user.entity';
+import { DeleteResult } from 'typeorm';
 
 @Injectable()
 export class TodosService {
@@ -41,11 +42,11 @@ export class TodosService {
     return found;
   }
 
-  async deleteTodo(id: number, user: User): Promise<void> {
+  async deleteTodo(id: number, user: User): Promise<DeleteResult> {
     const result = await this.todoRepository.delete({ id, user });
-
     if (result.affected === 0) {
       throw new NotFoundException(`Can't find todo with id ${id}`);
     }
+    return result;
   }
 }

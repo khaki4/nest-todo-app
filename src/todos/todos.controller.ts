@@ -20,6 +20,7 @@ import { Todo } from './todo.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/get-user.decorator';
 import { User } from '../auth/user.entity';
+import { DeleteResult } from 'typeorm';
 
 @Controller('todos')
 @UseGuards(AuthGuard())
@@ -64,7 +65,7 @@ export class TodosController {
   deleteTodo(
     @Param('id', ParseIntPipe) id: number,
     @GetUser() user: User,
-  ): Promise<void> {
+  ): Promise<DeleteResult> {
     return this.todoService.deleteTodo(id, user);
   }
 }
