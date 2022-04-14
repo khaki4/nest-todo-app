@@ -43,7 +43,7 @@ export class TodosController {
   createTodo(
     @Body() createBoardDto: CreateTodoDto,
     @GetUser() user: User,
-  ): Promise<Todo> {
+  ): Promise<Todo[]> {
     this.logger.verbose(
       `User ${user.username} is creating new todo.
       Payload: ${JSON.stringify(createBoardDto)}

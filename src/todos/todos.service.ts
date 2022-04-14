@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { TodoStatus } from './todo-status.enum';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { TodoRepository } from './todo.repository';
@@ -9,13 +9,16 @@ import { User } from '../auth/user.entity';
 
 @Injectable()
 export class TodosService {
+  private logger = new Logger('TodosService');
+
   constructor(
     @InjectRepository(TodoRepository)
     private todoRepository: TodoRepository,
   ) {}
 
-  createTodo(createBoardDto: CreateTodoDto, user: User): Promise<Todo> {
-    return this.todoRepository.createTodo(createBoardDto, user);
+  async createTodo(createBoardDto: CreateTodoDto, user: User): Promise<Todo[]> {
+    await this.todoRepository.createTodo(createBoardDto, user);
+    return this.todoRepository.getAllTodos(user);
   }
 
   async updateTodoStatus(id: number, status: TodoStatus): Promise<Todo> {
