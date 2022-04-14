@@ -6,6 +6,7 @@ import { isNil } from 'lodash';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SignUpReturnValue } from './auth.model';
+import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<User> {
     return this.userRepository.createUser(authCredentialsDto);
   }
 
