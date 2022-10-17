@@ -43,7 +43,7 @@ enum TodoStatus {
   - method: Post
   - uri: `todos/`
   - requestParams
-  ```json
+  ```javascript
   {
     title: string
     description: string
