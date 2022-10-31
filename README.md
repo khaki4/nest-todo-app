@@ -54,7 +54,7 @@ enum TodoStatus {
   - method: Delete
   - uri: `todos/{id}`
   - requestParams: 없음
-  - response: `TODO`
+  - response: `TODO[]`
 - todo 상태 업데이트 하기
   - method: Patch
   - uri: `todos/{id}/status`
